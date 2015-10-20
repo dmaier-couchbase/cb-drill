@@ -17,6 +17,7 @@
 package com.couchbase.apache.drill;
 
 import com.couchbase.apache.drill.config.CBStoragePluginConfig;
+import com.couchbase.apache.drill.config.ConfigFactory;
 import com.couchbase.apache.drill.schema.CBSchemaFactory;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -138,13 +139,10 @@ public class CBStoragePlugin extends AbstractStoragePlugin {
         LOG.debug("userName = " + userName);
         LOG.debug("selection = " + selection.toString());
          
-        CBScanSpec scanSpec = selection.getListWith(new ObjectMapper(), new TypeReference<CBScanSpec>(){});
+        CBDefaultScanSpec scanSpec = selection.getListWith(new ObjectMapper(), new TypeReference<CBDefaultScanSpec>(){});
         
-        return new CBGroupScan(userName, this, scanSpec, null);
-    }
-
-    
-    
-    
+        return new CBDefaultGroupScan(userName,this,scanSpec);
+        
+    }    
     
 }

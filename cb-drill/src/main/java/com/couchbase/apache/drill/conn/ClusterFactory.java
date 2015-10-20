@@ -45,6 +45,11 @@ public class ClusterFactory {
         return cluster;
     }
     
+    /**
+     * Create a cluster reference based on the configuration
+     * 
+     * @return 
+     */
     public static Cluster createCluster()
     {
         

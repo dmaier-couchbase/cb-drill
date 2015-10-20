@@ -17,71 +17,54 @@ package com.couchbase.apache.drill;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.HashMap;
+import java.util.Map;
 import org.apache.log4j.Logger;
 
 /**
- * Defines how a scan in Couchbase is looking like.
+ * Defines how a scan in Couchbase is looking like. 
  * 
- * Our Couchbase scan is defined by using
- * the bucket to scan from and the N1QL query 
- * which should be used to gather results
+ * Our Couchbase scan is defined by defining which bucket is used
  * 
  * @author David Maier <david.maier at couchbase.com>
  */
-public class CBScanSpec {
+public class CBDefaultScanSpec {
     
-    private static final Logger LOG = Logger.getLogger(CBScanSpec.class.getName());
+    private static final Logger LOG = Logger.getLogger(CBDefaultScanSpec.class.getName());
     
     /**
      * The bucket to scan
      */
-    private final String bucket;
-
-    /**
-     * The query to use
-     * 
-     * TODO: Find out if N1QL pass through would be possible
-     */
-    private String query = "";
+    protected String bucket;
     
     /**
      * Jackson allows to create an instance from JSON
      * by using a JsonCreator
      * 
-     * @param bucket
-     * @param query 
+     * @param bucket 
      */
     @JsonCreator
-    public CBScanSpec(@JsonProperty("bucket") String bucket, @JsonProperty("query") String query) {
+    public CBDefaultScanSpec(@JsonProperty("bucket") String bucket) {
         
         LOG.debug("Initializing Couchbase ScanSpec ...");
-        LOG.debug("query = " + query);
         LOG.debug("bucket = " + bucket);
         
         this.bucket = bucket;
-        if (query != null) this.query = query;
     }
 
-    public CBScanSpec(String bucket)
-    {
-        this.bucket = bucket;
-    }
     
     public String getBucket() {
         return bucket;
     }
 
-    public String getQuery() {
-        return query;
-    } 
 
     @Override
     public String toString() {
         
-        return bucket + ": " + query;
+        Map<String,String> specProps = new HashMap<>();
+        specProps.put("bucket", bucket);
+        
+        return specProps.toString();
     }
-    
-    
-    
     
 }

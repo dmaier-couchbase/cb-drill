@@ -54,6 +54,12 @@ public class BucketFactory {
     }
     
     
+    
+    /**
+     * Create the bucket connection based on the configuration
+     * 
+     * @return 
+     */
     public static Bucket createBucketCon()
     {
         

@@ -15,7 +15,7 @@
  */
 package com.couchbase.apache.drill.schema;
 
-import com.couchbase.apache.drill.CBScanSpec;
+import com.couchbase.apache.drill.CBDefaultScanSpec;
 import com.couchbase.apache.drill.CBStoragePlugin;
 import com.couchbase.apache.drill.config.CBStoragePluginConfig;
 import com.couchbase.apache.drill.config.ConfigFactory;
@@ -157,8 +157,7 @@ public class CBSchema extends AbstractSchema {
     public CBStoragePlugin getPlugin() {
         return plugin;
     }
-      
- 
+
     
     /**
      * Get a specific table
@@ -169,6 +168,7 @@ public class CBSchema extends AbstractSchema {
     @Override
     public Table getTable(String name) {
     
-        return new DynamicDrillTable(plugin, name, new CBScanSpec(name));
+        //TODO: Trying to use the DynamicDrillTable here
+        return new DynamicDrillTable(plugin, name, new CBDefaultScanSpec(name));
     }  
 }
